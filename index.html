@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>SVG Edit</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="x" oninput="onChange('x')">,
+        <input type="text" id="y" oninput="onChange('y')">,
+        <input type="text" id="width" oninput="onChange('width')">,
+        <input type="text" id="height" oninput="onChange('height')">
+    </div>
+    <div>
+    <object data="pokeball.svg" type="image/svg+xml"
+        id="svg" onload="onSvgLoad()"
+        style="border: 3px dashed black; padding:0px; margin:0px;"
+    >
+    </div>
+</body>
+<script>
+    const boxes = {};
+    let vBox;
+    for (const box_id of ['x', 'y', 'width', 'height']) {
+        boxes[box_id] = document.getElementById(box_id);
+    }
+    
+    function onSvgLoad() {
+        const svg = document.getElementById('svg').contentDocument.getElementById("svg2");
+        vBox = svg.viewBox.baseVal;
+        boxes['x'].value = vBox.x;
+        boxes['y'].value = vBox.y;
+        boxes['width'].value = vBox.width;
+        boxes['height'].value = vBox.height;
+    }
+    
+    function onChange(box_id) {
+        value = boxes[box_id].value;
+        vBox[box_id] = value;
+    }
+</script>
+</html>
